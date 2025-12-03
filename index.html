@@ -348,6 +348,56 @@
                 pointer-events: auto;
             }
 
+            .photo-share-banner {
+                background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+                border-radius: 20px;
+                padding: 25px;
+                margin-bottom: 30px;
+                text-align: center;
+                box-shadow: 0 8px 30px rgba(255, 107, 107, 0.3);
+                animation: pulse 2s ease-in-out infinite;
+            }
+            @keyframes pulse {
+                0%, 100% {
+                    box-shadow: 0 8px 30px rgba(255, 107, 107, 0.3);
+                }
+                50% {
+                    box-shadow: 0 8px 40px rgba(255, 107, 107, 0.5);
+                }
+            }
+            .photo-share-banner h2 {
+                color: white;
+                margin-bottom: 15px;
+                font-size: 1.5em;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+            }
+            .photo-share-banner p {
+                color: white;
+                font-size: 1em;
+                margin-bottom: 20px;
+                opacity: 0.95;
+            }
+            .photo-share-button {
+                display: inline-block;
+                background: white;
+                color: #ff6b6b;
+                padding: 15px 40px;
+                border-radius: 50px;
+                text-decoration: none;
+                font-weight: bold;
+                font-size: 1.1em;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            }
+            .photo-share-button:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+                background: #fff5f5;
+            }
+
             footer {
                 text-align: center;
                 color: white;
@@ -389,6 +439,17 @@
                 <h1>🏕️ 2025 圣诞露营 🎄</h1>
                 <p class="subtitle">12月6日 - 7日 | 两天一夜亲子露营</p>
             </header>
+
+            <!-- 共享相册横幅 -->
+            <section class="photo-share-banner">
+                <h2>📸 共享相册 📷</h2>
+                <p>记录我们的美好时光！欢迎大家上传照片和视频到共享相册</p>
+                <a href="https://photos.app.goo.gl/Qru5AeKStDxXkZaBA"
+                   target="_blank"
+                   class="photo-share-button">
+                    🌟 点击上传照片/视频 🌟
+                </a>
+            </section>
 
             <!-- 物品清单 -->
             <section class="intro">
@@ -815,7 +876,7 @@
                     Merry Christmas & Happy Camping!
                 </p>
                 <p style="margin-top: 20px; font-size: 0.85em; opacity: 0.6">
-                    版本 1.5 | 更新于 2025-12-03
+                    版本 1.6 | 更新于 2025-12-03
                 </p>
             </footer>
         </div>
