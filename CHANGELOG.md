@@ -2,6 +2,25 @@
 
 本文档记录 2025 圣诞露营网页的所有版本更新。
 
+## [1.5] - 2025-12-03
+
+### 新增
+- 🗺️ 12月7日返程增加7个观光景点
+  - 第三站：Giant Lemon & Paeroa Bottle（巨型柠檬雕塑）
+  - 第四站：Owharoa Falls（瀑布）
+  - 第五站：Victoria Battery Tramway & Museum（金矿tramway博物馆）
+  - 第六站：Waihi Goldmine Lookout（金矿观景台）
+  - 第七站：Waihi Lavender Farm（薰衣草农场）
+  - 第八站：Whangamata Marina（码头）
+  - 第九站：Pauanui Beach（鲍鱼海滩）
+- 每个景点添加详细地址和Google Maps链接
+- 标注每个景点的停留时间建议
+
+### 优化
+- 更新Day 2标题为"返程观光日"
+- 调整景点编号顺序（第三站→第九站）
+- 丰富返程路线的观光体验
+
 ## [1.4] - 2025-12-03
 
 ### 优化
