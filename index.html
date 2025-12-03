@@ -343,6 +343,9 @@
             .custom-tooltip.touch-mode .tooltip-hint {
                 display: block;
             }
+            .custom-tooltip.touch-mode {
+                cursor: pointer;
+            }
 
             footer {
                 text-align: center;
@@ -530,7 +533,7 @@
                             <li>吃个 Pie 当午餐</li>
                             <li>
                                 停车地址：<a
-                                    href="https://www.google.com/maps/place/New+World+Morrinsville,+Thames+Street,+Morrinsville,+New+Zealand"
+                                    href="https://www.google.com/maps/search/?api=1&query=New+World+Supermarket+Morrinsville+New+Zealand"
                                     target="_blank"
                                     class="location-link"
                                     data-tooltip="Morrinsville 新世界超市停车场，位于 Thames Street"
@@ -684,7 +687,7 @@
                     Merry Christmas & Happy Camping!
                 </p>
                 <p style="margin-top: 20px; font-size: 0.85em; opacity: 0.6">
-                    版本 1.1 | 更新于 2025-12-03
+                    版本 1.2 | 更新于 2025-12-03
                 </p>
             </footer>
         </div>
@@ -695,7 +698,7 @@
             <div class="tooltip-content">
                 <div class="tooltip-title"></div>
                 <div class="tooltip-description"></div>
-                <div class="tooltip-hint">👆 再次点击跳转到地图</div>
+                <div class="tooltip-hint">👆 点击卡片跳转到地图</div>
             </div>
         </div>
 
@@ -731,21 +734,25 @@
                     hideTooltip();
                 });
 
-                // 触摸设备：第一次点击显示 Tooltip，第二次点击跳转
+                // 触摸设备：点击显示 Tooltip，点击 Tooltip 跳转
                 link.addEventListener("click", (e) => {
                     if (!isTouchDevice) return; // 桌面端正常跳转
 
-                    if (currentActiveLink === link) {
-                        // 第二次点击同一个链接，允许跳转
-                        currentActiveLink = null;
-                        return; // 不阻止默认行为，正常跳转
-                    } else {
-                        // 第一次点击，显示 Tooltip，阻止跳转
-                        e.preventDefault();
-                        currentActiveLink = link;
-                        showTooltipTouch(link);
-                    }
+                    // 第一次点击，显示 Tooltip，阻止跳转
+                    e.preventDefault();
+                    currentActiveLink = link;
+                    showTooltipTouch(link);
                 });
+            });
+
+            // 点击 Tooltip 跳转到地图（触摸设备）
+            tooltip.addEventListener("click", (e) => {
+                if (!isTouchDevice) return;
+                if (currentActiveLink) {
+                    window.open(currentActiveLink.href, "_blank");
+                    hideTooltip();
+                    currentActiveLink = null;
+                }
             });
 
             // 点击其他地方关闭 Tooltip（触摸设备）
