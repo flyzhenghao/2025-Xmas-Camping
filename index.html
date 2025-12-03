@@ -332,6 +332,17 @@
                 color: #666;
                 font-size: 0.9em;
             }
+            .tooltip-hint {
+                color: #4a7c23;
+                font-size: 0.8em;
+                margin-top: 8px;
+                padding-top: 8px;
+                border-top: 1px dashed #e0e0e0;
+                display: none;
+            }
+            .custom-tooltip.touch-mode .tooltip-hint {
+                display: block;
+            }
 
             footer {
                 text-align: center;
@@ -519,10 +530,11 @@
                             <li>吃个 Pie 当午餐</li>
                             <li>
                                 停车地址：<a
-                                    href="https://www.google.com/maps/place/New+World+Morrinsville"
+                                    href="https://www.google.com/maps/place/New+World+Morrinsville,+Thames+Street,+Morrinsville,+New+Zealand"
                                     target="_blank"
                                     class="location-link"
-                                    data-tooltip="Morrinsville 新世界超市停车场"
+                                    data-tooltip="Morrinsville 新世界超市停车场，位于 Thames Street"
+                                    data-image="https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=800&q=80"
                                     >New World Morrinsville<span class="icon"
                                         >📍</span
                                     ></a
@@ -672,7 +684,7 @@
                     Merry Christmas & Happy Camping!
                 </p>
                 <p style="margin-top: 20px; font-size: 0.85em; opacity: 0.6">
-                    版本 1.0 | 更新于 2025-12-03
+                    版本 1.1 | 更新于 2025-12-03
                 </p>
             </footer>
         </div>
@@ -683,6 +695,7 @@
             <div class="tooltip-content">
                 <div class="tooltip-title"></div>
                 <div class="tooltip-description"></div>
+                <div class="tooltip-hint">👆 再次点击跳转到地图</div>
             </div>
         </div>
 
@@ -694,31 +707,102 @@
                 ".tooltip-description",
             );
 
+            // 检测是否为触摸设备
+            const isTouchDevice =
+                "ontouchstart" in window || navigator.maxTouchPoints > 0;
+
+            // 当前激活的链接（用于触摸设备的两次点击逻辑）
+            let currentActiveLink = null;
+
             document.querySelectorAll(".location-link").forEach((link) => {
+                // 桌面端：鼠标悬停显示 Tooltip
                 link.addEventListener("mouseenter", (e) => {
-                    const title = link.textContent.replace("📍", "").trim();
-                    const description = link.dataset.tooltip || "";
-                    const image = link.dataset.image || "";
+                    if (isTouchDevice) return; // 触摸设备忽略鼠标事件
+                    showTooltip(link, e);
+                });
 
-                    tooltipTitle.textContent = title;
-                    tooltipDescription.textContent = description;
-
-                    if (image) {
-                        tooltipImage.src = image;
-                        tooltipImage.style.display = "block";
-                    } else {
-                        tooltipImage.style.display = "none";
-                    }
-
-                    tooltip.classList.add("show");
+                link.addEventListener("mousemove", (e) => {
+                    if (isTouchDevice) return;
                     positionTooltip(e);
                 });
 
-                link.addEventListener("mousemove", positionTooltip);
                 link.addEventListener("mouseleave", () => {
-                    tooltip.classList.remove("show");
+                    if (isTouchDevice) return;
+                    hideTooltip();
+                });
+
+                // 触摸设备：第一次点击显示 Tooltip，第二次点击跳转
+                link.addEventListener("click", (e) => {
+                    if (!isTouchDevice) return; // 桌面端正常跳转
+
+                    if (currentActiveLink === link) {
+                        // 第二次点击同一个链接，允许跳转
+                        currentActiveLink = null;
+                        return; // 不阻止默认行为，正常跳转
+                    } else {
+                        // 第一次点击，显示 Tooltip，阻止跳转
+                        e.preventDefault();
+                        currentActiveLink = link;
+                        showTooltipTouch(link);
+                    }
                 });
             });
+
+            // 点击其他地方关闭 Tooltip（触摸设备）
+            document.addEventListener("click", (e) => {
+                if (!isTouchDevice) return;
+                if (
+                    !e.target.closest(".location-link") &&
+                    !e.target.closest(".custom-tooltip")
+                ) {
+                    hideTooltip();
+                    currentActiveLink = null;
+                }
+            });
+
+            function showTooltip(link, e) {
+                const title = link.textContent.replace("📍", "").trim();
+                const description = link.dataset.tooltip || "";
+                const image = link.dataset.image || "";
+
+                tooltipTitle.textContent = title;
+                tooltipDescription.textContent = description;
+
+                if (image) {
+                    tooltipImage.src = image;
+                    tooltipImage.style.display = "block";
+                } else {
+                    tooltipImage.style.display = "none";
+                }
+
+                tooltip.classList.add("show");
+                positionTooltip(e);
+            }
+
+            function showTooltipTouch(link) {
+                const title = link.textContent.replace("📍", "").trim();
+                const description = link.dataset.tooltip || "";
+                const image = link.dataset.image || "";
+
+                tooltipTitle.textContent = title;
+                tooltipDescription.textContent = description;
+
+                if (image) {
+                    tooltipImage.src = image;
+                    tooltipImage.style.display = "block";
+                } else {
+                    tooltipImage.style.display = "none";
+                }
+
+                tooltip.classList.add("show");
+                tooltip.classList.add("touch-mode");
+                positionTooltipTouch(link);
+            }
+
+            function hideTooltip() {
+                tooltip.classList.remove("show");
+                tooltip.classList.remove("touch-mode");
+            }
 
             function positionTooltip(e) {
                 const padding = 15;
@@ -732,6 +816,32 @@
                 }
                 if (top + tooltipRect.height > window.innerHeight) {
                     top = e.clientY - tooltipRect.height - padding;
+                }
+
+                tooltip.style.left = left + "px";
+                tooltip.style.top = top + "px";
+            }
+
+            function positionTooltipTouch(link) {
+                const linkRect = link.getBoundingClientRect();
+                const tooltipRect = tooltip.getBoundingClientRect();
+                const padding = 10;
+
+                // 定位在链接下方
+                let left =
+                    linkRect.left + linkRect.width / 2 - tooltipRect.width / 2;
+                let top = linkRect.bottom + padding;
+
+                // 确保不超出屏幕边界
+                if (left < padding) {
+                    left = padding;
+                }
+                if (left + tooltipRect.width > window.innerWidth - padding) {
+                    left = window.innerWidth - tooltipRect.width - padding;
+                }
+                if (top + tooltipRect.height > window.innerHeight - padding) {
+                    // 如果下方空间不足，显示在上方
+                    top = linkRect.top - tooltipRect.height - padding;
                 }
 
                 tooltip.style.left = left + "px";
