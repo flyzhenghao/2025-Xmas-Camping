@@ -1,0 +1,742 @@
+<!doctype html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>2025 圣诞露营 🏕️</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body {
+                font-family:
+                    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                    sans-serif;
+                background: linear-gradient(
+                    135deg,
+                    #2d5016 0%,
+                    #4a7c23 50%,
+                    #228b22 100%
+                );
+                min-height: 100vh;
+                padding: 20px;
+            }
+            .container {
+                max-width: 900px;
+                margin: 0 auto;
+            }
+
+            header {
+                background: rgba(255, 255, 255, 0.95);
+                border-radius: 20px;
+                padding: 30px;
+                text-align: center;
+                margin-bottom: 30px;
+                position: relative;
+                overflow: hidden;
+            }
+            header::before {
+                content: "🎄";
+                position: absolute;
+                font-size: 80px;
+                opacity: 0.1;
+                top: -10px;
+                left: 10px;
+            }
+            header::after {
+                content: "🏕️";
+                position: absolute;
+                font-size: 80px;
+                opacity: 0.1;
+                bottom: -10px;
+                right: 10px;
+            }
+            h1 {
+                color: #2d5016;
+                margin-bottom: 10px;
+                font-size: 2em;
+            }
+            .subtitle {
+                color: #666;
+                font-size: 1.1em;
+            }
+
+            .intro {
+                background: white;
+                border-radius: 20px;
+                padding: 25px;
+                margin-bottom: 25px;
+            }
+            .intro h2 {
+                color: #2d5016;
+                margin-bottom: 15px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            .intro ul {
+                list-style: none;
+                columns: 2;
+                column-gap: 30px;
+            }
+            .intro li {
+                padding: 8px 0;
+                padding-left: 25px;
+                position: relative;
+                break-inside: avoid;
+            }
+            .intro li::before {
+                content: "✓";
+                color: #4a7c23;
+                position: absolute;
+                left: 0;
+                font-weight: bold;
+            }
+            .intro .category {
+                font-weight: bold;
+                color: #2d5016;
+                margin-top: 15px;
+                margin-bottom: 10px;
+                column-span: all;
+            }
+
+            .trip-section {
+                background: white;
+                border-radius: 20px;
+                padding: 25px;
+                margin-bottom: 25px;
+            }
+            .section-header {
+                background: linear-gradient(135deg, #2d5016 0%, #4a7c23 100%);
+                color: white;
+                padding: 15px 20px;
+                border-radius: 12px;
+                margin-bottom: 20px;
+            }
+            .section-title {
+                font-size: 1.3em;
+                margin-bottom: 10px;
+            }
+            .section-info {
+                display: flex;
+                gap: 20px;
+                flex-wrap: wrap;
+            }
+            .info-item {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .day-card {
+                background: linear-gradient(to right, #f0f7e6, #ffffff);
+                border-left: 4px solid #4a7c23;
+                border-radius: 0 12px 12px 0;
+                padding: 20px;
+                margin-bottom: 20px;
+                transition:
+                    transform 0.3s ease,
+                    box-shadow 0.3s ease;
+            }
+            .day-card:hover {
+                transform: translateX(5px);
+                box-shadow: 0 5px 20px rgba(45, 80, 22, 0.2);
+            }
+            .day-header {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                margin-bottom: 15px;
+            }
+            .day-number {
+                background: linear-gradient(135deg, #2d5016, #4a7c23);
+                color: white;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: bold;
+                font-size: 1.2em;
+            }
+            .day-title {
+                font-size: 1.1em;
+                color: #333;
+            }
+            .day-date {
+                color: #666;
+                font-size: 0.9em;
+            }
+
+            .activity {
+                margin-bottom: 15px;
+            }
+            .activity h4 {
+                color: #2d5016;
+                margin-bottom: 8px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+            .activity ul {
+                list-style: none;
+                padding-left: 20px;
+            }
+            .activity li {
+                padding: 5px 0;
+                position: relative;
+                padding-left: 20px;
+            }
+            .activity li::before {
+                content: "•";
+                color: #4a7c23;
+                position: absolute;
+                left: 0;
+                font-weight: bold;
+            }
+
+            .location-link {
+                color: #2d5016;
+                text-decoration: none;
+                font-weight: 600;
+                border-bottom: 2px dotted #4a7c23;
+                transition: all 0.3s ease;
+                cursor: pointer;
+            }
+            .location-link:hover {
+                color: #228b22;
+                border-bottom-color: #228b22;
+            }
+            .location-link .icon {
+                margin-left: 4px;
+                font-size: 0.85em;
+                opacity: 0.7;
+            }
+
+            .highlight {
+                background: linear-gradient(to right, #e8f5e9, #c8e6c9);
+                padding: 2px 8px;
+                border-radius: 4px;
+            }
+
+            .food-section {
+                background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+                border-radius: 20px;
+                padding: 25px;
+                margin-bottom: 25px;
+            }
+            .food-section h2 {
+                color: #f57c00;
+                margin-bottom: 20px;
+                text-align: center;
+            }
+            .food-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 15px;
+            }
+            .food-item {
+                background: white;
+                padding: 15px;
+                border-radius: 12px;
+                border-left: 4px solid #ff9800;
+            }
+            .food-item h3 {
+                color: #f57c00;
+                margin-bottom: 10px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+            .food-item ul {
+                list-style: none;
+            }
+            .food-item li {
+                padding: 4px 0;
+                padding-left: 20px;
+                position: relative;
+            }
+            .food-item li::before {
+                content: "🔸";
+                position: absolute;
+                left: 0;
+                font-size: 0.7em;
+            }
+
+            .todo-section {
+                background: linear-gradient(135deg, #fce4ec 0%, #f8bbd9 100%);
+                border-radius: 20px;
+                padding: 25px;
+                margin-bottom: 25px;
+            }
+            .todo-section h2 {
+                color: #c2185b;
+                margin-bottom: 20px;
+                text-align: center;
+            }
+            .todo-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 15px;
+            }
+            .todo-item {
+                background: white;
+                padding: 15px;
+                border-radius: 12px;
+            }
+            .todo-item h3 {
+                color: #c2185b;
+                margin-bottom: 10px;
+                font-size: 1em;
+            }
+            .todo-item ul {
+                list-style: none;
+            }
+            .todo-item li {
+                padding: 4px 0;
+                font-size: 0.9em;
+            }
+
+            .custom-tooltip {
+                position: fixed;
+                background: white;
+                border-radius: 12px;
+                box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s ease;
+                z-index: 1000;
+                max-width: 300px;
+                overflow: hidden;
+            }
+            .custom-tooltip.show {
+                opacity: 1;
+            }
+            .tooltip-image {
+                width: 100%;
+                height: 150px;
+                object-fit: cover;
+            }
+            .tooltip-content {
+                padding: 15px;
+            }
+            .tooltip-title {
+                font-weight: bold;
+                color: #333;
+                margin-bottom: 8px;
+            }
+            .tooltip-description {
+                color: #666;
+                font-size: 0.9em;
+            }
+
+            footer {
+                text-align: center;
+                color: white;
+                padding: 30px;
+                opacity: 0.9;
+            }
+            .footer-emoji {
+                font-size: 2em;
+                margin-bottom: 15px;
+            }
+
+            @media (max-width: 768px) {
+                body {
+                    padding: 10px;
+                }
+                h1 {
+                    font-size: 1.5em;
+                }
+                .intro ul {
+                    columns: 1;
+                }
+                .section-info {
+                    flex-direction: column;
+                    gap: 10px;
+                }
+                .day-card {
+                    padding: 15px;
+                }
+                .food-grid,
+                .todo-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <h1>🏕️ 2025 圣诞露营 🎄</h1>
+                <p class="subtitle">12月6日 - 7日 | 两天一夜亲子露营</p>
+            </header>
+
+            <!-- 物品清单 -->
+            <section class="intro">
+                <h2>🎒 物品清单</h2>
+
+                <p class="category">👕 衣物用品</p>
+                <ul>
+                    <li>大人泳衣一套</li>
+                    <li>孩子泳衣 1-2 套</li>
+                    <li>拖鞋、睡衣</li>
+                    <li>娃圣诞帽服装</li>
+                </ul>
+
+                <p class="category">🏕️ 露营装备</p>
+                <ul>
+                    <li>帐篷</li>
+                    <li>睡袋、睡垫</li>
+                    <li>帐篷用灯</li>
+                    <li>自动充气泵</li>
+                    <li>手电筒</li>
+                    <li>入营用电线</li>
+                    <li>晒衣服用的绳子</li>
+                    <li>简易沙滩凳子</li>
+                    <li>折叠桌子</li>
+                </ul>
+
+                <p class="category">🍳 餐饮用品</p>
+                <ul>
+                    <li>Chilly bin 保温箱</li>
+                    <li>锅、小煤气罐、油</li>
+                    <li>火锅用勺子</li>
+                    <li>自备碗筷</li>
+                    <li>矿泉水</li>
+                </ul>
+
+                <p class="category">💊 个人护理</p>
+                <ul>
+                    <li>防水防晒霜</li>
+                    <li>邦迪创可贴</li>
+                    <li>防蚊喷剂</li>
+                    <li>常用药品</li>
+                    <li>洗漱用品</li>
+                </ul>
+
+                <p class="category">🎉 娱乐物品</p>
+                <ul>
+                    <li>小音箱</li>
+                    <li>无人机</li>
+                    <li>牌类游戏</li>
+                    <li>球类</li>
+                    <li>圣诞礼物（或红包代替）</li>
+                </ul>
+            </section>
+
+            <!-- 食物准备 -->
+            <section class="food-section">
+                <h2>🍖 圣诞大餐准备</h2>
+                <p style="text-align: center; margin-bottom: 20px; color: #666">
+                    6号晚上圣诞大餐 - 烧烤 + 火锅为主
+                </p>
+                <div class="food-grid">
+                    <div class="food-item">
+                        <h3>🔥 烧烤/火锅</h3>
+                        <ul>
+                            <li>每家备一个烧烤锅或火锅</li>
+                            <li>火锅/烧烤食材各带一点</li>
+                            <li>酒水饮料</li>
+                        </ul>
+                    </div>
+                    <div class="food-item">
+                        <h3>🍰 熟食分享</h3>
+                        <ul>
+                            <li>每家备 1-2 个熟食</li>
+                            <li>甜点、蛋糕</li>
+                            <li>水果拼盘</li>
+                            <li>蛋挞、寿司</li>
+                            <li>薯片等零食</li>
+                            <li>用盒子/盘子装好拍照</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 行程安排 -->
+            <section class="trip-section">
+                <div class="section-header">
+                    <h2 class="section-title">📅 行程安排</h2>
+                    <div class="section-info">
+                        <div class="info-item">
+                            <span>📆</span>
+                            <span><strong>日期：</strong>12月6日 - 7日</span>
+                        </div>
+                        <div class="info-item">
+                            <span>👨‍👩‍👧‍👦</span>
+                            <span><strong>类型：</strong>亲子露营</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 1 -->
+                <div class="day-card">
+                    <div class="day-header">
+                        <div class="day-number">D1</div>
+                        <div>
+                            <div class="day-title">12月6日 (周六) - 出发日</div>
+                            <div class="day-date">牛牛小镇 → 露营地</div>
+                        </div>
+                    </div>
+
+                    <div class="activity">
+                        <h4>🌅 早上</h4>
+                        <ul>
+                            <li><strong>8:00</strong> 起床准备</li>
+                            <li><strong>8:30 - 9:00</strong> 陆续出发</li>
+                        </ul>
+                    </div>
+
+                    <div class="activity">
+                        <h4>🚗 第一站：牛牛小镇 (车程约2小时)</h4>
+                        <ul>
+                            <li>
+                                抵达
+                                <a
+                                    href="https://www.google.com/maps/place/Morrinsville,+New+Zealand"
+                                    target="_blank"
+                                    class="location-link"
+                                    data-tooltip="新西兰著名的奶牛小镇，镇上有60头彩绘牛雕塑"
+                                    data-image="https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=800&q=80"
+                                    >Morrinsville 牛牛小镇<span class="icon"
+                                        >📍</span
+                                    ></a
+                                >
+                            </li>
+                            <li>
+                                在小镇游玩
+                                <span class="highlight">1-2 小时</span>
+                            </li>
+                            <li>
+                                寻找
+                                <strong>60 头彩绘牛</strong>
+                                雕塑，看看你能找到几只！
+                            </li>
+                            <li>吃个 Pie 当午餐</li>
+                            <li>
+                                停车地址：<a
+                                    href="https://www.google.com/maps/place/New+World+Morrinsville"
+                                    target="_blank"
+                                    class="location-link"
+                                    data-tooltip="Morrinsville 新世界超市停车场"
+                                    >New World Morrinsville<span class="icon"
+                                        >📍</span
+                                    ></a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="activity">
+                        <h4>🏕️ 第二站：露营地 (车程约45分钟)</h4>
+                        <ul>
+                            <li>
+                                抵达
+                                <a
+                                    href="https://www.google.com/maps/place/116+Finlay+Road,+Maungatautari"
+                                    target="_blank"
+                                    class="location-link"
+                                    data-tooltip="Epworth Camp 露营地，有泳池和划船设施"
+                                    data-image="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=800&q=80"
+                                    >Epworth Camp<span class="icon">📍</span></a
+                                >
+                            </li>
+                            <li>地址：116 Finlay Road, Maungatautari</li>
+                            <li>搭建帐篷、安顿</li>
+                            <li>
+                                营地设施：<span class="highlight">泳池</span
+                                >、<span class="highlight">划船</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="activity">
+                        <h4>🎄 晚上：圣诞 Party</h4>
+                        <ul>
+                            <li>圣诞大餐：烧烤 + 火锅</li>
+                            <li>各家分享熟食美食</li>
+                            <li>交换圣诞礼物 🎁</li>
+                            <li>孩子们穿上圣诞服装</li>
+                            <li>音乐、游戏、欢乐时光</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Day 2 -->
+                <div class="day-card">
+                    <div class="day-header">
+                        <div class="day-number">D2</div>
+                        <div>
+                            <div class="day-title">12月7日 (周日) - 返程日</div>
+                            <div class="day-date">海滩挖 Pipi → 圣诞灯展</div>
+                        </div>
+                    </div>
+
+                    <div class="activity">
+                        <h4>🌅 早上</h4>
+                        <ul>
+                            <li><strong>7:30</strong> 起床收拾帐篷</li>
+                            <li><strong>8:00</strong> 做早餐、吃早餐</li>
+                            <li><strong>9:00</strong> 离开营地</li>
+                        </ul>
+                    </div>
+
+                    <div class="activity">
+                        <h4>🏖️ 第三站：鲍鱼海滩</h4>
+                        <ul>
+                            <li>
+                                前往
+                                <a
+                                    href="https://www.google.com/maps/place/Pauanui+Beach,+New+Zealand"
+                                    target="_blank"
+                                    class="location-link"
+                                    data-tooltip="美丽的新西兰海滩，可以挖 Pipi 贝类"
+                                    data-image="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80"
+                                    >Pauanui Beach 鲍鱼海滩<span class="icon"
+                                        >📍</span
+                                    ></a
+                                >
+                            </li>
+                            <li>
+                                活动：<span class="highlight"
+                                    >挖 Pipi 贝类</span
+                                >
+                                🐚
+                            </li>
+                            <li>享受海滩时光</li>
+                        </ul>
+                    </div>
+
+                    <div class="activity">
+                        <h4>🎅 最后一站：圣诞灯展</h4>
+                        <ul>
+                            <li>
+                                参观
+                                <a
+                                    href="https://www.gvr.org.nz/event/xmas-lights"
+                                    target="_blank"
+                                    class="location-link"
+                                    data-tooltip="Goldfields Railway 圣诞灯展活动"
+                                    >GVR 圣诞灯展<span class="icon">📍</span></a
+                                >
+                            </li>
+                            <li>欣赏美丽的圣诞灯光装饰</li>
+                            <li>为圣诞露营画上完美句号 ✨</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 温馨提示 -->
+            <section class="todo-section">
+                <h2>💡 温馨提示</h2>
+                <div class="todo-grid">
+                    <div class="todo-item">
+                        <h3>🎁 圣诞礼物</h3>
+                        <ul>
+                            <li>准备交换礼物</li>
+                            <li>没有可用红包代替</li>
+                        </ul>
+                    </div>
+                    <div class="todo-item">
+                        <h3>📱 电子产品</h3>
+                        <ul>
+                            <li>尽量不要玩电子产品</li>
+                            <li>多和小伙伴互动</li>
+                        </ul>
+                    </div>
+                    <div class="todo-item">
+                        <h3>🔌 电线</h3>
+                        <ul>
+                            <li>记得带入营用电线</li>
+                        </ul>
+                    </div>
+                    <div class="todo-item">
+                        <h3>📸 拍照</h3>
+                        <ul>
+                            <li>熟食用盒子/盘子装好</li>
+                            <li>方便拍照留念</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <footer>
+                <div class="footer-emoji">🏕️ 🎄 🎅 🎁</div>
+                <p>祝大家圣诞露营愉快！</p>
+                <p style="margin-top: 10px; opacity: 0.8">
+                    Merry Christmas & Happy Camping!
+                </p>
+                <p style="margin-top: 20px; font-size: 0.85em; opacity: 0.6">
+                    版本 1.0 | 更新于 2025-12-03
+                </p>
+            </footer>
+        </div>
+
+        <!-- Tooltip Container -->
+        <div id="customTooltip" class="custom-tooltip">
+            <img class="tooltip-image" src="" alt="" />
+            <div class="tooltip-content">
+                <div class="tooltip-title"></div>
+                <div class="tooltip-description"></div>
+            </div>
+        </div>
+
+        <script>
+            const tooltip = document.getElementById("customTooltip");
+            const tooltipImage = tooltip.querySelector(".tooltip-image");
+            const tooltipTitle = tooltip.querySelector(".tooltip-title");
+            const tooltipDescription = tooltip.querySelector(
+                ".tooltip-description",
+            );
+
+            document.querySelectorAll(".location-link").forEach((link) => {
+                link.addEventListener("mouseenter", (e) => {
+                    const title = link.textContent.replace("📍", "").trim();
+                    const description = link.dataset.tooltip || "";
+                    const image = link.dataset.image || "";
+
+                    tooltipTitle.textContent = title;
+                    tooltipDescription.textContent = description;
+
+                    if (image) {
+                        tooltipImage.src = image;
+                        tooltipImage.style.display = "block";
+                    } else {
+                        tooltipImage.style.display = "none";
+                    }
+
+                    tooltip.classList.add("show");
+                    positionTooltip(e);
+                });
+
+                link.addEventListener("mousemove", positionTooltip);
+                link.addEventListener("mouseleave", () => {
+                    tooltip.classList.remove("show");
+                });
+            });
+
+            function positionTooltip(e) {
+                const padding = 15;
+                let left = e.clientX + padding;
+                let top = e.clientY + padding;
+
+                const tooltipRect = tooltip.getBoundingClientRect();
+
+                if (left + tooltipRect.width > window.innerWidth) {
+                    left = e.clientX - tooltipRect.width - padding;
+                }
+                if (top + tooltipRect.height > window.innerHeight) {
+                    top = e.clientY - tooltipRect.height - padding;
+                }
+
+                tooltip.style.left = left + "px";
+                tooltip.style.top = top + "px";
+            }
+        </script>
+    </body>
+</html>
